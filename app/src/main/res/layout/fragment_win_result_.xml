@@ -5,8 +5,40 @@
     android:layout_height="match_parent"
     tools:context=".ui.winTeams.WinResult_F">
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".MainActivity"
+        >
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/view_toolbar"/>
+
+        <TextView
+            android:id="@+id/btnRestart"
+            style="@style/commonButtonStyle"
+            android:layout_alignParentBottom="true"
+            android:text="@string/txt_restart" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/toolbar"
+            android:layout_above="@+id/btnRestart"
+            android:paddingTop="@dimen/dp10"
+            android:paddingHorizontal="@dimen/dp15"
+            android:gravity="center"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recWinList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_fixture" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 </FrameLayout>

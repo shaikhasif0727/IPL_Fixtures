@@ -5,10 +5,12 @@
       <map>
         <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/drawable/d_corner_round_dark_blue.xml" value="0.10666666666666667" />
         <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/activity_main.xml" value="0.10666666666666667" />
-        <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/fragment_matches_list_.xml" value="0.14666666666666667" />
-        <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/fragment_team_list_.xml" value="0.1" />
-        <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/item_fixture.xml" value="0.10666666666666667" />
-        <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/item_teams.xml" value="0.16666666666666666" />
+        <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/fragment_matches_list_.xml" value="0.1" />
+        <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/fragment_team_list_.xml" value="0.10666666666666667" />
+        <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/fragment_win_result_.xml" value="0.1" />
+        <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/item_fixture.xml" value="0.16666666666666666" />
+        <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/item_teams.xml" value="0.1" />
+        <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/item_teamwin.xml" value="0.3333333333333333" />
         <entry key="..\:/AsifFilese/Personal/Test/IPL_Fixtures/app/src/main/res/layout/view_toolbar.xml" value="0.14791666666666667" />
       </map>
     </option>

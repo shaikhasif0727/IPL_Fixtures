@@ -1,13 +1,15 @@
 package com.ipl_fixtures.ui.matches
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ipl_fixtures.databinding.ItemFixtureBinding
 import com.ipl_fixtures.models.MatchData
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 
-class MatchesAdapter: RecyclerView.Adapter<MatchesAdapter.myViewHolder>() {
+class MatchesAdapter(@ApplicationContext val context: Context ?= null): RecyclerView.Adapter<MatchesAdapter.myViewHolder>() {
 
     private var matchesList: List<MatchData> = ArrayList()
 
@@ -42,6 +44,9 @@ class MatchesAdapter: RecyclerView.Adapter<MatchesAdapter.myViewHolder>() {
                 binding.tvTeam1.text = team1.teamName
                 binding.tvTeam2.text = team2.teamName
                 binding.tvDate.text = matchData.matchDate
+
+                binding.ivTeamlogo1.setImageDrawable(context?.getDrawable(team1.teamImage))
+                binding.ivTeamlogo2.setImageDrawable(context?.getDrawable(team2.teamImage))
             }
     }
 }

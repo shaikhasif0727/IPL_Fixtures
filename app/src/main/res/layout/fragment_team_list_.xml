@@ -3,18 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.teamsList.TeamList_F">
+    tools:context=".ui.teamsList.TeamList_F"
+    >
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity"
-        android:background="@color/bgColor"
         >
 
-        <include
+        <ImageView
             android:id="@+id/toolbar"
-            layout="@layout/view_toolbar" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cricket_text"
+            android:layout_marginTop="@dimen/dp15"
+            android:layout_marginBottom="@dimen/dp15"
+            />
 
         <TextView
             android:id="@+id/btnStartIPL"

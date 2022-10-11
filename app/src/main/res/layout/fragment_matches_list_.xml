@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity"
-        android:background="@color/bgColor"
         >
 
         <include
@@ -29,6 +28,7 @@
             android:layout_above="@+id/btnSimulate"
             android:paddingTop="@dimen/dp10"
             android:paddingHorizontal="@dimen/dp15"
+            android:gravity="center"
             >
 
             <androidx.recyclerview.widget.RecyclerView

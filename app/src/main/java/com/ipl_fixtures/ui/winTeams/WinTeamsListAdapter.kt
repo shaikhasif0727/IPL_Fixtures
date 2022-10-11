@@ -1,18 +1,18 @@
-package com.ipl_fixtures.ui.teamsList
+package com.ipl_fixtures.ui.winTeams
 
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ipl_fixtures.databinding.ItemFixtureBinding
 import com.ipl_fixtures.databinding.ItemTeamsBinding
-import com.ipl_fixtures.models.MatchData
+import com.ipl_fixtures.databinding.ItemTeamwinBinding
 import com.ipl_fixtures.models.TeamData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 
-class TeamsListAdapter(@ApplicationContext val context: Context ?= null): RecyclerView.Adapter<TeamsListAdapter.myViewHolder>() {
+class WinTeamsListAdapter(@ApplicationContext val context: Context ?= null): RecyclerView.Adapter<WinTeamsListAdapter.myViewHolder>() {
 
     private var teamList: List<TeamData> = ArrayList()
 
@@ -23,7 +23,7 @@ class TeamsListAdapter(@ApplicationContext val context: Context ?= null): Recycl
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myViewHolder {
-        val binding = ItemTeamsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemTeamwinBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return myViewHolder(binding)
     }
 
@@ -39,12 +39,21 @@ class TeamsListAdapter(@ApplicationContext val context: Context ?= null): Recycl
     }
 
 
-    inner class myViewHolder(private val binding: ItemTeamsBinding)
+    inner class myViewHolder(private val binding: ItemTeamwinBinding)
         : RecyclerView.ViewHolder(binding.root) {
             fun bind(teamData: TeamData){
                 binding.tvCricketTeam.text = teamData.teamName
                 Log.d("TeamListAdapter",""+teamData.teamImage)
                 binding.ivTeamlogo.setImageDrawable(context?.getDrawable(teamData.teamImage))
+                binding.tvWinningPosition.text = "${adapterPosition+1}st Position"
+                binding.ivWinnerIcon.visibility = adapterPosition.let {
+                    when(it)
+                    {
+                        0 -> View.VISIBLE
+                        1 -> View.GONE
+                        else -> View.GONE
+                    }
+                }
             }
     }
 }

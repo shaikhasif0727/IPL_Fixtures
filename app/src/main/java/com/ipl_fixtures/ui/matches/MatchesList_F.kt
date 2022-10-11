@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ipl_fixtures.R
 import com.ipl_fixtures.databinding.FragmentMatchesListBinding
 import com.ipl_fixtures.models.MatchData
+import com.ipl_fixtures.ui.FixturesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -19,8 +21,8 @@ class MatchesList_F : Fragment() {
     private var _binding: FragmentMatchesListBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: MatchesAdapter
-    val fixturesViewModel by viewModels<FixturesViewModel>()
-    private var cricketTeamsData: MutableList<MatchData> = ArrayList()
+    private val fixturesViewModel: FixturesViewModel by activityViewModels()
+    lateinit var cricketTeamsData: MutableList<MatchData>
 
 
     override fun onCreateView(
@@ -28,8 +30,8 @@ class MatchesList_F : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMatchesListBinding.inflate(inflater, container, false)
-//        fixturesViewModel = ViewModelProvider(this).get(FixturesViewModel::class.java)
-        adapter = MatchesAdapter()
+        cricketTeamsData = fixturesViewModel.getParseTeamList()
+        adapter = MatchesAdapter(context)
         return binding.root
     }
 
@@ -38,7 +40,7 @@ class MatchesList_F : Fragment() {
         binding.toolbar.tvToolbarHeading.text = getString(R.string.headingMatches)
         fixturesViewModel.loadMainMatchesList()
         binding.btnSimulate.setOnClickListener {
-            fixturesViewModel.setWinTeamsListing(fixturesViewModel.getWinningTeam(cricketTeamsData))
+            manageSimulateAction()
         }
 
         binding.recMatchesList.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
@@ -54,6 +56,18 @@ class MatchesList_F : Fragment() {
             }
         )
 
+    }
+
+    private fun manageSimulateAction() {
+        cricketTeamsData.size.let { it ->
+            if(it <= 1)
+            {
+                findNavController().navigate(R.id.action_matchesList_F_to_winResult_F)
+            }
+            else
+                fixturesViewModel.setWinTeamsListing(fixturesViewModel.getWinningTeam(cricketTeamsData))
+
+        }
     }
 
     private fun manageBottomButtons() {
