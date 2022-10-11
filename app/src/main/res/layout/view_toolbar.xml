@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/toolbarColor"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+
+        <TextView
+            android:id="@+id/tvToolbarHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display_bold"
+            android:text="IPL Schedule"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:layout_marginBottom="@dimen/dp10"
+            />
+    </androidx.appcompat.widget.Toolbar>

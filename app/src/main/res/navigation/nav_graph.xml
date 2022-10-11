@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/teamList_F">
+    <fragment
+        android:id="@+id/teamList_F"
+        android:name="com.ipl_fixtures.ui.teamsList.TeamList_F"
+        android:label="fragment_team_list_"
+        tools:layout="@layout/fragment_team_list_" >
+        <action
+            android:id="@+id/action_teamList_F_to_matchesList_F"
+            app:destination="@id/matchesList_F" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/matchesList_F"
+        android:name="com.ipl_fixtures.ui.matches.MatchesList_F"
+        android:label="fragment_matches_list_"
+        tools:layout="@layout/fragment_matches_list_" >
+        <action
+            android:id="@+id/action_matchesList_F_to_winResult_F"
+            app:destination="@id/winResult_F" />
+    </fragment>
+    <fragment
+        android:id="@+id/winResult_F"
+        android:name="com.ipl_fixtures.ui.winTeams.WinResult_F"
+        android:label="fragment_win_result_"
+        tools:layout="@layout/fragment_win_result_" >
+        <action
+            android:id="@+id/action_winResult_F_to_teamList_F"
+            app:destination="@id/teamList_F" />
+    </fragment>
+</navigation>

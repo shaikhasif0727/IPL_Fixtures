@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.teamsList.TeamList_F">
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:background="@color/bgColor"
+        >
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/view_toolbar" />
+
+        <TextView
+            android:id="@+id/btnStartIPL"
+            style="@style/commonButtonStyle"
+            android:layout_alignParentBottom="true"
+            android:text="@string/txt_start_ipl" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/toolbar"
+            android:layout_above="@+id/btnStartIPL"
+            android:paddingTop="@dimen/dp10"
+            android:paddingHorizontal="@dimen/dp15"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recTeamList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_teams" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/darkBlueColor"
+    app:cardCornerRadius="@dimen/dp5"
+    app:cardUseCompatPadding="true"
+    android:layout_marginBottom="@dimen/dp10"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="@dimen/dp10"
+            android:paddingHorizontal="@dimen/dp20"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            >
+
+            <ImageView
+                android:id="@+id/ivTeamlogo1"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="@dimen/dp80"
+                android:src="@drawable/ic_ball_throw"
+                android:layout_marginRight="@dimen/dp5"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/tvTeam1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display_bold"
+                    android:text="Punjab kings"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp12"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:gravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display_bold"
+                    android:textStyle="italic"
+                    android:text="Vs"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp16"
+                    android:layout_marginBottom="@dimen/dp10"
+                    />
+
+                <TextView
+                    android:id="@+id/tvTeam2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display_bold"
+                    android:text="Rajasthan Royals"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp12"
+                    android:layout_marginBottom="@dimen/dp15"
+                    android:gravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display_bold"
+                    android:text="Live Score"
+                    android:textColor="@color/highlight_text_color"
+                    android:textSize="@dimen/sp15"
+                    android:layout_marginBottom="@dimen/dp10"
+                    />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivTeamlogo2"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="@dimen/dp80"
+                android:src="@drawable/ic_ball_throw"
+                android:layout_marginLeft="@dimen/dp5"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp10"
+            >
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_display_bold"
+                android:text="16 september"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp14" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
