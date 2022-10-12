@@ -6,6 +6,9 @@
     <string name="txt_restart">Restart</string>
     <string name="headingIPLTeam">IPL Team List</string>
     <string name="headingMatches">IPL Schedule</string>
+    <string name="headingGames">IPL Matches</string>
+    <string name="headingSemiFinalGame">IPL Semi Final</string>
+    <string name="headingFinalGameFinal">IPL Final</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

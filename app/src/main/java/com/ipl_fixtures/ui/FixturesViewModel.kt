@@ -21,12 +21,17 @@ class FixturesViewModel @Inject constructor(
      ) : ViewModel() {
 
     private lateinit var matcheslist: List<MatchData>
-    private lateinit var winningTeam: MutableList<TeamData>
+    private lateinit var looseTeamList: MutableList<TeamData>
+    private lateinit var winningTeamList: MutableList<TeamData>
     private var cricketTeamsData: MutableList<MatchData> = ArrayList()
+    private var isFinalMatch = false;
 
 
     private val _matchesLiveData = MutableLiveData<List<MatchData>>()
     val matchesLiveData get() = _matchesLiveData
+
+    private val _looseTeammatchesLiveData = MutableLiveData<List<MatchData>>()
+    val looseTeammatchesLiveData get() = _looseTeammatchesLiveData
 
     public fun loadMainMatchesList() {
         viewModelScope.launch {
@@ -39,15 +44,27 @@ class FixturesViewModel @Inject constructor(
         matchesLiveData.postValue(fixturesRepository.getTeamspairs(winTeamsList))
     }
 
+
     public fun getMainMatchesList() : LiveData<List<MatchData>> {
         return matchesLiveData
     }
+
+    public fun setLooseTeamsListing(looseTeamsList: List<TeamData>){
+        looseTeammatchesLiveData.postValue(fixturesRepository.getTeamspairs(looseTeamsList))
+    }
+
+    public fun getLooseTeamMatchesList() : LiveData<List<MatchData>> {
+        return looseTeammatchesLiveData
+    }
+
+    public fun getLooseTeamsList() = looseTeamList
 
     fun getParseTeamList() = cricketTeamsData
 
     fun getWinningTeam(matcheslist : List<MatchData>) : List<TeamData>
     {
-        winningTeam= ArrayList()
+        winningTeamList= ArrayList()
+        looseTeamList= ArrayList()
 
         for (teams in matcheslist)
         {
@@ -62,34 +79,69 @@ class FixturesViewModel @Inject constructor(
                 else
                     teams.team2Data
             }
-            winningTeam.add(winTeam)
+            val looseTeam = teams.winTeam.let { it ->
+                if(it != 0)
+                    teams.team1Data
+                else
+                    teams.team2Data
+            }
+            winTeam.isWinner = 1
+            looseTeam.isWinner = 0
+            winningTeamList.add(winTeam)
+            looseTeamList.add(looseTeam)
         }
 
-        return winningTeam
+        return winningTeamList
     }
 
      fun getGameWinningTeams(matcheslist : List<MatchData>) : List<TeamData>{
-        winningTeam= ArrayList()
+        winningTeamList= ArrayList()
 
         for (teams in matcheslist)
         {
+
             val wining = (0..1).random()
             teams.winTeam = wining
 
             Log.d("FixturesViewModel","getGameWinningTeams : "+teams.winTeam)
 
-            winningTeam.add(teams.team1Data)
-            winningTeam.add(teams.team2Data)
+            if(teams.team1Data.isWinner == 0 && teams.team2Data.isWinner == 0)
+            {
+                if(teams.winTeam == 0)
+                {
+                    teams.team1Data.isWinner = 1
+                    teams.team2Data.isWinner = 0
+                }
+                else
+                {
+                    teams.team1Data.isWinner = 0
+                    teams.team2Data.isWinner = 1
+                }
+            }
+
+
+            winningTeamList.add(teams.team1Data)
+            winningTeamList.apply {
+                if(teams.team2Data.isWinner == 1)
+                    add(teams.team2Data)
+            }
 
             teams.winTeam.let { it ->
                 if(it == 1)
                 {
-                     Collections.reverse(winningTeam)
+                     Collections.reverse(winningTeamList)
                 }
             }
         }
 
-        return winningTeam
+        return winningTeamList
+    }
+
+    fun getIsFinalMatch() = isFinalMatch
+
+    fun setIsFinalMatch(value : Boolean)
+    {
+        this.isFinalMatch = value
     }
 
 

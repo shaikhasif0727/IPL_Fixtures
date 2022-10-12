@@ -56,11 +56,18 @@ class MatchesList_F : Fragment() {
             }
         )
 
+        fixturesViewModel.getLooseTeamMatchesList().observe(
+            viewLifecycleOwner,{
+                cricketTeamsData.addAll(it)
+                adapter.setDataonList(cricketTeamsData)
+            }
+        )
+
     }
 
     private fun manageSimulateAction() {
         cricketTeamsData.size.let { it ->
-            if(it <= 1)
+            if(fixturesViewModel.getIsFinalMatch())
             {
                 findNavController().navigate(R.id.action_matchesList_F_to_winResult_F)
             }
@@ -71,11 +78,25 @@ class MatchesList_F : Fragment() {
     }
 
     private fun manageBottomButtons() {
+        fixturesViewModel.setIsFinalMatch(false)
         val buttonText = cricketTeamsData.size.let { it ->
             if(it <= 1)
+            {
+                fixturesViewModel.setIsFinalMatch(true)
+                fixturesViewModel.setLooseTeamsListing(fixturesViewModel.getLooseTeamsList())
+                binding.toolbar.tvToolbarHeading.text = getString(R.string.headingFinalGameFinal)
                 getString(R.string.txt_simulate_end)
-            else
+            }
+            else if(it <= 2)
+            {
+                binding.toolbar.tvToolbarHeading.text = getString(R.string.headingSemiFinalGame)
                 getString(R.string.txt_simulate)
+            }
+            else
+            {
+                binding.toolbar.tvToolbarHeading.text = getString(R.string.headingGames)
+                getString(R.string.txt_simulate)
+            }
         }
         binding.btnSimulate.text = buttonText
     }
