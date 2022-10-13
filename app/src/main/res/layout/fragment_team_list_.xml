@@ -21,17 +21,33 @@
             android:layout_marginBottom="@dimen/dp15"
             />
 
-        <TextView
-            android:id="@+id/btnStartIPL"
-            style="@style/commonButtonStyle"
+        <LinearLayout
+            android:id="@+id/lnrBottomButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="@string/txt_start_ipl" />
+            >
+            <TextView
+                android:id="@+id/btnStartIPL"
+                style="@style/commonButtonStyle"
+                android:text="@string/txt_start_ipl"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/btnAddTeam"
+                style="@style/commonButtonStyle"
+                android:background="@color/purple_700"
+                android:text="@string/txt_addteams"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_below="@+id/toolbar"
-            android:layout_above="@+id/btnStartIPL"
+            android:layout_above="@+id/lnrBottomButtons"
             android:paddingTop="@dimen/dp10"
             android:paddingHorizontal="@dimen/dp15"
             >

@@ -16,4 +16,6 @@ interface FixturesRepository {
 
  fun getTeamspairs(matchesList: List<IPLTeamsListing>) : List<MatchData>
 
+ suspend fun addTeam(teams: IPLTeamsListing)
+
 }

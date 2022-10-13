@@ -10,5 +10,5 @@
     <string name="headingSemiFinalGame">IPL Semi Final</string>
     <string name="headingFinalGameFinal">IPL Final</string>
     <string name="heading_ipl_winner">IPL Winners</string>
-
+    <string name="txt_addteams">Add Team</string>
 </resources>

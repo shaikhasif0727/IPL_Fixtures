@@ -62,7 +62,7 @@ class FixturesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMatchParseTeamsList(): List<MatchData> {
-        val teamsListData = TeamsData.getTeamList()
+        val teamsListData = dao.searchIPLListing("").map { it.toIPLListing() }
         Collections.shuffle(teamsListData)
         return getTeamspairs(teamsListData)
     }
@@ -84,4 +84,6 @@ class FixturesRepositoryImpl @Inject constructor(
 
         return matchesList
     }
+
+    override suspend fun addTeam(teams: IPLTeamsListing) = dao.insertCompanyListing(teams.toIPLListingEntity())
 }

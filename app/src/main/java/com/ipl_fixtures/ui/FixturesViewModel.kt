@@ -9,7 +9,6 @@ import com.ipl_fixtures.domain.model.MatchData
 import com.ipl_fixtures.domain.model.IPLTeamsListing
 import com.ipl_fixtures.domain.repository.FixturesRepository
 import com.ipl_fixtures.utils.Resource
-import com.ipl_fixtures.utils.TeamsData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.*
@@ -22,6 +21,7 @@ class FixturesViewModel @Inject constructor(
      val repository: FixturesRepository
      ) : ViewModel() {
 
+    private var iplTeamsList: MutableList<IPLTeamsListing> = ArrayList()
     private lateinit var matcheslist: List<MatchData>
     private lateinit var looseTeamList: MutableList<IPLTeamsListing>
     private lateinit var winningTeamList: MutableList<IPLTeamsListing>
@@ -30,7 +30,6 @@ class FixturesViewModel @Inject constructor(
 
 
     private val _iplLiveData = MutableLiveData<Resource<List<IPLTeamsListing>>>()
-//    val iplTeamListLiveData : LiveData<Resource<List<IPLTeamsListing>>>
     val iplTeamListLiveData get() = _iplLiveData
 
     private val _matchesLiveData = MutableLiveData<List<MatchData>>()
@@ -39,17 +38,31 @@ class FixturesViewModel @Inject constructor(
     private val _looseTeammatchesLiveData = MutableLiveData<List<MatchData>>()
     val looseTeammatchesLiveData get() = _looseTeammatchesLiveData
 
-    public fun getIPLListing(
+    public fun loadIPLListing(
         query: String = "",
         fetchFromRemote: Boolean = false
-    ) : LiveData<Resource<List<IPLTeamsListing>>> {
+    )  {
         viewModelScope.launch {
             repository
                 .getTeamsList(fetchFromRemote,query)
                 .collect{ result ->
                     _iplLiveData.postValue(result)
+                    iplTeamsList
+                    when(result)
+                    {
+                        is Resource.Loading ->{}
+                        is Resource.Success ->{
+                            iplTeamsList.clear()
+                            result.data?.apply { iplTeamsList.addAll(this) }
+                        }
+                        is Resource.Error   ->{}
+                    }
                 }
         }
+    }
+
+    public fun getIPLListing() : LiveData<Resource<List<IPLTeamsListing>>>
+    {
         return iplTeamListLiveData
     }
 
@@ -166,6 +179,16 @@ class FixturesViewModel @Inject constructor(
     {
         this.isFinalMatch = value
     }
+
+    fun addIPLTeam(teams: IPLTeamsListing) {
+        viewModelScope.launch {
+            repository.addTeam(teams)?.let {
+                loadIPLListing()
+            }
+        }
+    }
+
+    fun getIPLTeam() = iplTeamsList
 
 
 }
