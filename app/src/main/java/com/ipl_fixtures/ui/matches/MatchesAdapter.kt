@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ipl_fixtures.databinding.ItemFixtureBinding
-import com.ipl_fixtures.models.MatchData
+import com.ipl_fixtures.domain.model.MatchData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 

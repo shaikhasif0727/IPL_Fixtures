@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ipl_fixtures.models.MatchData
-import com.ipl_fixtures.models.TeamData
-import com.ipl_fixtures.repository.FixturesRepository
+import com.ipl_fixtures.domain.model.MatchData
+import com.ipl_fixtures.domain.model.IPLTeamsListing
+import com.ipl_fixtures.domain.repository.FixturesRepository
+import com.ipl_fixtures.utils.Resource
+import com.ipl_fixtures.utils.TeamsData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.*
@@ -17,15 +19,19 @@ import kotlin.collections.ArrayList
 
 @HiltViewModel
 class FixturesViewModel @Inject constructor(
-     val fixturesRepository: FixturesRepository
+     val repository: FixturesRepository
      ) : ViewModel() {
 
     private lateinit var matcheslist: List<MatchData>
-    private lateinit var looseTeamList: MutableList<TeamData>
-    private lateinit var winningTeamList: MutableList<TeamData>
+    private lateinit var looseTeamList: MutableList<IPLTeamsListing>
+    private lateinit var winningTeamList: MutableList<IPLTeamsListing>
     private var cricketTeamsData: MutableList<MatchData> = ArrayList()
     private var isFinalMatch = false;
 
+
+    private val _iplLiveData = MutableLiveData<Resource<List<IPLTeamsListing>>>()
+//    val iplTeamListLiveData : LiveData<Resource<List<IPLTeamsListing>>>
+    val iplTeamListLiveData get() = _iplLiveData
 
     private val _matchesLiveData = MutableLiveData<List<MatchData>>()
     val matchesLiveData get() = _matchesLiveData
@@ -33,15 +39,29 @@ class FixturesViewModel @Inject constructor(
     private val _looseTeammatchesLiveData = MutableLiveData<List<MatchData>>()
     val looseTeammatchesLiveData get() = _looseTeammatchesLiveData
 
+    public fun getIPLListing(
+        query: String = "",
+        fetchFromRemote: Boolean = false
+    ) : LiveData<Resource<List<IPLTeamsListing>>> {
+        viewModelScope.launch {
+            repository
+                .getTeamsList(fetchFromRemote,query)
+                .collect{ result ->
+                    _iplLiveData.postValue(result)
+                }
+        }
+        return iplTeamListLiveData
+    }
+
     public fun loadMainMatchesList() {
         viewModelScope.launch {
-            matcheslist = fixturesRepository.getTeamsList()
+            matcheslist = repository.getMatchParseTeamsList()
             matchesLiveData.postValue(matcheslist)
         }
     }
 
-    public fun setWinTeamsListing(winTeamsList: List<TeamData>){
-        matchesLiveData.postValue(fixturesRepository.getTeamspairs(winTeamsList))
+    public fun setWinTeamsListing(winTeamsList: List<IPLTeamsListing>){
+        matchesLiveData.postValue(repository.getTeamspairs(winTeamsList))
     }
 
 
@@ -49,8 +69,8 @@ class FixturesViewModel @Inject constructor(
         return matchesLiveData
     }
 
-    public fun setLooseTeamsListing(looseTeamsList: List<TeamData>){
-        looseTeammatchesLiveData.postValue(fixturesRepository.getTeamspairs(looseTeamsList))
+    public fun setLooseTeamsListing(looseTeamsList: List<IPLTeamsListing>){
+        looseTeammatchesLiveData.postValue(repository.getTeamspairs(looseTeamsList))
     }
 
     public fun getLooseTeamMatchesList() : LiveData<List<MatchData>> {
@@ -61,7 +81,7 @@ class FixturesViewModel @Inject constructor(
 
     fun getParseTeamList() = cricketTeamsData
 
-    fun getWinningTeam(matcheslist : List<MatchData>) : List<TeamData>
+    fun getWinningTeam(matcheslist : List<MatchData>) : List<IPLTeamsListing>
     {
         winningTeamList= ArrayList()
         looseTeamList= ArrayList()
@@ -94,7 +114,7 @@ class FixturesViewModel @Inject constructor(
         return winningTeamList
     }
 
-     fun getGameWinningTeams(matcheslist : List<MatchData>) : List<TeamData>{
+     fun getGameWinningTeams(matcheslist : List<MatchData>) : List<IPLTeamsListing>{
         winningTeamList= ArrayList()
 
         for (teams in matcheslist)

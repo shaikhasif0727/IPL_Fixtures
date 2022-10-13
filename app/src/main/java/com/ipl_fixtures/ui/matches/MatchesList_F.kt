@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ipl_fixtures.R
 import com.ipl_fixtures.databinding.FragmentMatchesListBinding
-import com.ipl_fixtures.models.MatchData
+import com.ipl_fixtures.domain.model.MatchData
 import com.ipl_fixtures.ui.FixturesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
