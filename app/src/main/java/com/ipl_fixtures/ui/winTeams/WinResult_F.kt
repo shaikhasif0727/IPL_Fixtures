@@ -35,6 +35,7 @@ class WinResult_F : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.toolbar.tvToolbarHeading.setText(getString(R.string.heading_ipl_winner))
         binding.btnRestart.setOnClickListener {
             findNavController().navigate(R.id.action_winResult_F_to_teamList_F)
         }

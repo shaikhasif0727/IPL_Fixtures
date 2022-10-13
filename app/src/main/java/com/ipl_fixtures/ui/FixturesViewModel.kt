@@ -120,7 +120,10 @@ class FixturesViewModel @Inject constructor(
             }
 
 
-            winningTeamList.add(teams.team1Data)
+            winningTeamList.apply {
+                if(teams.team1Data.isWinner == 1)
+                    add(teams.team1Data)
+            }
             winningTeamList.apply {
                 if(teams.team2Data.isWinner == 1)
                     add(teams.team2Data)
